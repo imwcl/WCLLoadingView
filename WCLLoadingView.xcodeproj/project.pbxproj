@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		971002231D7FB9F3001080BE /* WCLLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971002221D7FB9F3001080BE /* WCLLoadingView.swift */; };
+		97B2BC7C1D798E32003AA191 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B2BC7B1D798E32003AA191 /* UIColorExtension.swift */; };
 		97E814BF1D635E46002DF799 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E814BE1D635E46002DF799 /* AppDelegate.swift */; };
 		97E814C11D635E46002DF799 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E814C01D635E46002DF799 /* ViewController.swift */; };
 		97E814C41D635E46002DF799 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97E814C21D635E46002DF799 /* Main.storyboard */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		971002221D7FB9F3001080BE /* WCLLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCLLoadingView.swift; sourceTree = "<group>"; };
+		97B2BC7B1D798E32003AA191 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		97E814BB1D635E46002DF799 /* WCLLoadingView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WCLLoadingView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97E814BE1D635E46002DF799 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97E814C01D635E46002DF799 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +58,8 @@
 		97E814BD1D635E46002DF799 /* WCLLoadingView */ = {
 			isa = PBXGroup;
 			children = (
+				97B2BC7B1D798E32003AA191 /* UIColorExtension.swift */,
+				971002221D7FB9F3001080BE /* WCLLoadingView.swift */,
 				97E814BE1D635E46002DF799 /* AppDelegate.swift */,
 				97E814C01D635E46002DF799 /* ViewController.swift */,
 				97E814C21D635E46002DF799 /* Main.storyboard */,
@@ -135,8 +141,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				971002231D7FB9F3001080BE /* WCLLoadingView.swift in Sources */,
 				97E814C11D635E46002DF799 /* ViewController.swift in Sources */,
 				97E814BF1D635E46002DF799 /* AppDelegate.swift in Sources */,
+				97B2BC7C1D798E32003AA191 /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +296,7 @@
 				97E814CF1D635E46002DF799 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -9,10 +9,20 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var loadingView: WCLLoadingView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    @IBAction func sizeSliderValueChange(sender: UISlider) {
+        loadingView.transform = CGAffineTransformScale(CGAffineTransformIdentity, CGFloat(sender.value) , CGFloat(sender.value))
+    }
+
+    @IBAction func durationSliderValueChange(sender: UISlider) {
+        loadingView.duration = Double(sender.value)
     }
 
     override func didReceiveMemoryWarning() {

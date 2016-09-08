@@ -1,25 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WCLLoadingView" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cht-rp-tFt" customClass="WCLLoadingView" customModule="WCLLoadingView" customModuleProvider="target">
+                                <rect key="frame" x="100" y="155" width="120" height="120"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="Vh9-gS-Ecz"/>
+                                    <constraint firstAttribute="height" constant="120" id="s5H-fv-rDP"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Size：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzJ-kU-ECy">
+                                <rect key="frame" x="11" y="473" width="44" height="21"/>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Kh-tx-Gte">
+                                <rect key="frame" x="11" y="511" width="75" height="21"/>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="R9f-us-lFl">
+                                <rect key="frame" x="61" y="469" width="250" height="31"/>
+                                <connections>
+                                    <action selector="sizeSliderValueChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="QlA-sL-T6s"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="Spx-Ba-yPH">
+                                <rect key="frame" x="92" y="507" width="219" height="31"/>
+                                <connections>
+                                    <action selector="durationSliderValueChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="QFw-Da-7xq"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.95686274509803915" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Spx-Ba-yPH" firstAttribute="leading" secondItem="2Kh-tx-Gte" secondAttribute="trailing" constant="8" id="1iW-Gr-8wy"/>
+                            <constraint firstItem="Spx-Ba-yPH" firstAttribute="centerY" secondItem="2Kh-tx-Gte" secondAttribute="centerY" id="3Ku-rW-bQe"/>
+                            <constraint firstItem="2Kh-tx-Gte" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="11" id="8MX-wf-BKE"/>
+                            <constraint firstAttribute="trailing" secondItem="R9f-us-lFl" secondAttribute="trailing" constant="11" id="Ma7-Ot-OSa"/>
+                            <constraint firstItem="KzJ-kU-ECy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="11" id="Xt3-QD-LOR"/>
+                            <constraint firstItem="Cht-rp-tFt" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="135" id="f2P-1D-9M0"/>
+                            <constraint firstItem="R9f-us-lFl" firstAttribute="centerY" secondItem="KzJ-kU-ECy" secondAttribute="centerY" id="gMC-ZV-HcZ"/>
+                            <constraint firstAttribute="trailing" secondItem="Spx-Ba-yPH" secondAttribute="trailing" constant="11" id="m8f-Wf-5uA"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2Kh-tx-Gte" secondAttribute="bottom" constant="36" id="mly-d8-qTF"/>
+                            <constraint firstItem="2Kh-tx-Gte" firstAttribute="top" secondItem="KzJ-kU-ECy" secondAttribute="bottom" constant="17" id="oKU-NE-hVe"/>
+                            <constraint firstItem="Cht-rp-tFt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pcW-r1-GHa"/>
+                            <constraint firstItem="R9f-us-lFl" firstAttribute="leading" secondItem="KzJ-kU-ECy" secondAttribute="trailing" constant="8" id="qBQ-bd-EVD"/>
+                        </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="loadingView" destination="Cht-rp-tFt" id="a3k-wx-ZwH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="337" y="362"/>
         </scene>
     </scenes>
 </document>
