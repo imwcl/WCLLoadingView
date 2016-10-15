@@ -300,6 +300,7 @@ class WCLLoadingView: UIView, CAAnimationDelegate {
     }
     
     private func config() {
+        layoutIfNeeded()
         lineLength = max(frame.width, frame.height)
         lineWidth  = lineLength/6.0
         margin     = lineLength/4.5 + lineWidth/2
