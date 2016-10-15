@@ -1,18 +1,32 @@
 //
 //  WCLLoadingView.swift
-//  WCLLoadingView
+//  WCL
 //
-//  Created by 王崇磊 on 16/9/7.
-//  Copyright © 2016年 王崇磊. All rights reserved. https://github.com/631106979
+// **************************************************
+// *                                  _____         *
+// *         __  _  __     ___        \   /         *
+// *         \ \/ \/ /    / __\       /  /          *
+// *          \  _  /    | (__       /  /           *
+// *           \/ \/      \___/     /  /__          *
+// *                               /_____/          *
+// *                                                *
+// **************************************************
+//  Github  :https://github.com/631106979
+//  HomePage:https://imwcl.com
+//  CSDN    :http://blog.csdn.net/wang631106979
+//
+//  Created by 王崇磊 on 16/9/14.
+//  Copyright © 2016年 王崇磊. All rights reserved.
 //
 // @class WCLLoadingView
-// @abstract Loading 动画的UIView
-// @discussion Loading 动画的UIView
+// @abstract Slack 的 Loading 动画
+// @discussion Slack 的 Loading 动画
 //
+// 动画步骤解析：http://blog.csdn.net/wang631106979/article/details/52473985
 
 import UIKit
 
-class WCLLoadingView: UIView {
+class WCLLoadingView: UIView, CAAnimationDelegate {
     
     //线的宽度
     var lineWidth:CGFloat = 0
@@ -27,15 +41,15 @@ class WCLLoadingView: UIView {
     //四条线的颜色
     var colors:[UIColor] = [UIColor.init(rgba: "#9DD4E9") , UIColor.init(rgba: "#F5BD58"),  UIColor.init(rgba: "#FF317E") , UIColor.init(rgba: "#6FC9B5")]
     //动画的状态
-    private(set) var status:AnimationStatus = .Normal
+    private(set) var status:AnimationStatus = .normal
     //四条线
     private var lines:[CAShapeLayer] = []
     
     enum AnimationStatus {
         //普通状态
-        case Normal
+        case normal
         //动画中
-        case Animating
+        case animating
         //暂停
         case pause
     }
@@ -70,17 +84,17 @@ class WCLLoadingView: UIView {
         for lineLayer in lines {
             lineLayer.resumeAnimation()
         }
-        status = .Animating
+        status = .animating
     }
     
     //MARK: Override
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         switch status {
-        case .Animating:
+        case .animating:
             pauseAnimation()
         case .pause:
             resumeAnimation()
-        case .Normal:
+        case .normal:
             startAnimation()
         }
     }
@@ -104,21 +118,21 @@ class WCLLoadingView: UIView {
     }
     
     //MARK: Animation Delegate
-    override func animationDidStart(anim: CAAnimation) {
+    func animationDidStart(_ anim: CAAnimation) {
         if let animation = anim as? CABasicAnimation {
             if animation.keyPath == "transform.rotation.z" {
-                status = .Animating
+                status = .animating
             }
         }
     }
 
-    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if let animation = anim as? CABasicAnimation {
             if animation.keyPath == "strokeEnd" {
                 if flag {
-                    status = .Normal
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(interval) * Int64(NSEC_PER_SEC)), dispatch_get_main_queue(), {
-                        if self.status != .Animating {
+                    status = .normal
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(interval) * Int64(NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {
+                        if self.status != .animating {
                             self.startAnimation()
                         }
                     })
@@ -148,8 +162,8 @@ class WCLLoadingView: UIView {
             line.lineWidth   = lineWidth
             line.lineCap     = kCALineCapRound
             line.opacity     = 0.8
-            line.strokeColor = colors[i].CGColor
-            line.path        = getLinePath(startPoint[i], endPoint: endPoint[i]).CGPath
+            line.strokeColor = colors[i].cgColor
+            line.path        = getLinePath(startPoint[i], endPoint: endPoint[i]).cgPath
             layer.addSublayer(line)
             lines.append(line)
         }
@@ -164,10 +178,10 @@ class WCLLoadingView: UIView {
      
      - returns: 线的路径
      */
-    private func getLinePath(startPoint: CGPoint, endPoint: CGPoint) -> UIBezierPath {
+    private func getLinePath(_ startPoint: CGPoint, endPoint: CGPoint) -> UIBezierPath {
         let path = UIBezierPath()
-        path.moveToPoint(startPoint)
-        path.addLineToPoint(endPoint)
+        path.move(to: startPoint)
+        path.addLine(to: endPoint)
         return path
     }
     
@@ -180,10 +194,10 @@ class WCLLoadingView: UIView {
         angleAnimation.fromValue           = angle(-30)
         angleAnimation.toValue             = angle(690)
         angleAnimation.fillMode            = kCAFillModeForwards
-        angleAnimation.removedOnCompletion = false
+        angleAnimation.isRemovedOnCompletion = false
         angleAnimation.duration            = duration
         angleAnimation.delegate            = self
-        layer.addAnimation(angleAnimation, forKey: "angleAnimation")
+        layer.add(angleAnimation, forKey: "angleAnimation")
     }
     
     
@@ -194,12 +208,12 @@ class WCLLoadingView: UIView {
         let lineAnimationOne                 = CABasicAnimation.init(keyPath: "strokeEnd")
         lineAnimationOne.duration            = duration/2
         lineAnimationOne.fillMode            = kCAFillModeForwards
-        lineAnimationOne.removedOnCompletion = false
+        lineAnimationOne.isRemovedOnCompletion = false
         lineAnimationOne.fromValue           = 1
         lineAnimationOne.toValue             = 0
         for i in 0...3 {
             let lineLayer = lines[i]
-            lineLayer.addAnimation(lineAnimationOne, forKey: "lineAnimationOne")
+            lineLayer.add(lineAnimationOne, forKey: "lineAnimationOne")
         }
     }
     
@@ -216,7 +230,7 @@ class WCLLoadingView: UIView {
             lineAnimationTwo.beginTime = CACurrentMediaTime() + duration/2
             lineAnimationTwo.duration = duration/4
             lineAnimationTwo.fillMode = kCAFillModeForwards
-            lineAnimationTwo.removedOnCompletion = false
+            lineAnimationTwo.isRemovedOnCompletion = false
             lineAnimationTwo.autoreverses = true
             lineAnimationTwo.fromValue = 0
             if i < 2 {
@@ -225,7 +239,10 @@ class WCLLoadingView: UIView {
                 lineAnimationTwo.toValue = -lineLength/4
             }
             let lineLayer = lines[i]
-            lineLayer.addAnimation(lineAnimationTwo, forKey: "lineAnimationTwo")
+            lineLayer.add(lineAnimationTwo, forKey: "lineAnimationTwo")
+            DispatchQueue.main.async {
+                print("hahha")
+            }
         }
         
         //三角形两边的比例
@@ -239,7 +256,7 @@ class WCLLoadingView: UIView {
             lineAnimationTwo.beginTime = CACurrentMediaTime() + duration/2
             lineAnimationTwo.duration = duration/4
             lineAnimationTwo.fillMode = kCAFillModeForwards
-            lineAnimationTwo.removedOnCompletion = false
+            lineAnimationTwo.isRemovedOnCompletion = false
             lineAnimationTwo.autoreverses = true
             lineAnimationTwo.fromValue = 0
             if i == 0 || i == 3 {
@@ -248,7 +265,7 @@ class WCLLoadingView: UIView {
                 lineAnimationTwo.toValue = -lineLength/4 * scale
             }
             let lineLayer = lines[i]
-            lineLayer.addAnimation(lineAnimationTwo, forKey: "lineAnimationThree")
+            lineLayer.add(lineAnimationTwo, forKey: "lineAnimationThree")
         }
     }
     
@@ -257,28 +274,28 @@ class WCLLoadingView: UIView {
      */
     private func lineAnimationThree() {
         //线移动的动画
-        let lineAnimationFour                 = CABasicAnimation.init(keyPath: "strokeEnd")
-        lineAnimationFour.beginTime            = CACurrentMediaTime() + duration
-        lineAnimationFour.duration            = duration/4
-        lineAnimationFour.fillMode            = kCAFillModeForwards
-        lineAnimationFour.removedOnCompletion = false
-        lineAnimationFour.fromValue           = 0
-        lineAnimationFour.toValue             = 1
+        let lineAnimationFour                   = CABasicAnimation.init(keyPath: "strokeEnd")
+        lineAnimationFour.beginTime             = CACurrentMediaTime() + duration
+        lineAnimationFour.duration              = duration/4
+        lineAnimationFour.fillMode              = kCAFillModeForwards
+        lineAnimationFour.isRemovedOnCompletion = false
+        lineAnimationFour.fromValue             = 0
+        lineAnimationFour.toValue               = 1
         for i in 0...3 {
             if i == 3 {
                 lineAnimationFour.delegate = self
             }
             let lineLayer = lines[i]
-            lineLayer.addAnimation(lineAnimationFour, forKey: "lineAnimationFour")
+            lineLayer.add(lineAnimationFour, forKey: "lineAnimationFour")
         }
     }
     
-    //MARK: ---
-    private func point(x:CGFloat , y:CGFloat) -> CGPoint {
-        return CGPointMake(x, y)
+    //MARK: Private Methods
+    private func point(_ x:CGFloat , y:CGFloat) -> CGPoint {
+        return CGPoint(x: x, y: y)
     }
     
-    private func angle(angle: Double) -> CGFloat {
+    private func angle(_ angle: Double) -> CGFloat {
         return CGFloat(angle *  (M_PI/180))
     }
     
@@ -288,7 +305,7 @@ class WCLLoadingView: UIView {
         margin     = lineLength/4.5 + lineWidth/2
         drawLineShapeLayer()
         //调整角度
-        transform = CGAffineTransformRotate(CGAffineTransformIdentity, angle(-30))
+        transform = CGAffineTransform.identity.rotated(by: angle(-30))
     }
 }
 
@@ -296,7 +313,7 @@ extension CALayer {
     //暂停动画
     func pauseAnimation() {
         // 将当前时间CACurrentMediaTime转换为layer上的时间, 即将parent time转换为localtime
-        let pauseTime = convertTime(CACurrentMediaTime(), fromLayer: nil)
+        let pauseTime = convertTime(CACurrentMediaTime(), from: nil)
         // 设置layer的timeOffset, 在继续操作也会使用到
         timeOffset    = pauseTime
         // localtime与parenttime的比例为0, 意味着localtime暂停了
@@ -310,7 +327,7 @@ extension CALayer {
         timeOffset     = 0;
         beginTime      = 0
         // 计算暂停时间
-        let sincePause = convertTime(CACurrentMediaTime(), fromLayer: nil) - pausedTime
+        let sincePause = convertTime(CACurrentMediaTime(), from: nil) - pausedTime
         // local time相对于parent time时间的beginTime
         beginTime      = sincePause
     }

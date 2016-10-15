@@ -17,11 +17,11 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    @IBAction func sizeSliderValueChange(sender: UISlider) {
-        loadingView.transform = CGAffineTransformScale(CGAffineTransformIdentity, CGFloat(sender.value) , CGFloat(sender.value))
+    @IBAction func sizeSliderValueChange(_ sender: UISlider) {
+        loadingView.transform = CGAffineTransform.identity.scaledBy(x: CGFloat(sender.value) , y: CGFloat(sender.value))
     }
 
-    @IBAction func durationSliderValueChange(sender: UISlider) {
+    @IBAction func durationSliderValueChange(_ sender: UISlider) {
         loadingView.duration = Double(sender.value)
     }
 
