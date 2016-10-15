@@ -15,6 +15,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        loadingView.startAnimation()
+    }
+    
+    //MARK: Target Methods
+    @IBAction func tapLoadingView(_ sender: UITapGestureRecognizer) {
+        switch loadingView.status {
+        case .animating:
+            loadingView.pauseAnimation()
+        case .pause:
+            loadingView.resumeAnimation()
+        case .normal:
+            loadingView.startAnimation()
+        }
     }
     
     @IBAction func sizeSliderValueChange(_ sender: UISlider) {

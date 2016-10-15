@@ -87,18 +87,6 @@ class WCLLoadingView: UIView, CAAnimationDelegate {
         status = .animating
     }
     
-    //MARK: Override
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        switch status {
-        case .animating:
-            pauseAnimation()
-        case .pause:
-            resumeAnimation()
-        case .normal:
-            startAnimation()
-        }
-    }
-    
     //MARK: Initial Methods
     convenience init(fram: CGRect , colors: [UIColor]) {
         self.init()
@@ -240,9 +228,6 @@ class WCLLoadingView: UIView, CAAnimationDelegate {
             }
             let lineLayer = lines[i]
             lineLayer.add(lineAnimationTwo, forKey: "lineAnimationTwo")
-            DispatchQueue.main.async {
-                print("hahha")
-            }
         }
         
         //三角形两边的比例
