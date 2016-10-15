@@ -179,6 +179,7 @@ class WCLLoadingView: UIView, CAAnimationDelegate {
      */
     private func angleAnimation() {
         let angleAnimation                 = CABasicAnimation.init(keyPath: "transform.rotation.z")
+        angleAnimation.beginTime           = CACurrentMediaTime()
         angleAnimation.fromValue           = angle(-30)
         angleAnimation.toValue             = angle(690)
         angleAnimation.fillMode            = kCAFillModeForwards
@@ -194,6 +195,7 @@ class WCLLoadingView: UIView, CAAnimationDelegate {
      */
     private func lineAnimationOne() {
         let lineAnimationOne                 = CABasicAnimation.init(keyPath: "strokeEnd")
+        lineAnimationOne.beginTime           = CACurrentMediaTime()
         lineAnimationOne.duration            = duration/2
         lineAnimationOne.fillMode            = kCAFillModeForwards
         lineAnimationOne.isRemovedOnCompletion = false
@@ -214,13 +216,13 @@ class WCLLoadingView: UIView, CAAnimationDelegate {
             if i%2 == 1 {
                 keypath = "transform.translation.y"
             }
-            let lineAnimationTwo = CABasicAnimation.init(keyPath: keypath)
-            lineAnimationTwo.beginTime = CACurrentMediaTime() + duration/2
-            lineAnimationTwo.duration = duration/4
-            lineAnimationTwo.fillMode = kCAFillModeForwards
+            let lineAnimationTwo                   = CABasicAnimation.init(keyPath: keypath)
+            lineAnimationTwo.beginTime             = CACurrentMediaTime() + duration/2
+            lineAnimationTwo.duration              = duration/4
+            lineAnimationTwo.fillMode              = kCAFillModeForwards
             lineAnimationTwo.isRemovedOnCompletion = false
-            lineAnimationTwo.autoreverses = true
-            lineAnimationTwo.fromValue = 0
+            lineAnimationTwo.autoreverses          = true
+            lineAnimationTwo.fromValue             = 0
             if i < 2 {
                 lineAnimationTwo.toValue = lineLength/4
             }else {
@@ -237,13 +239,13 @@ class WCLLoadingView: UIView, CAAnimationDelegate {
             if i%2 == 1 {
                 keypath = "transform.translation.x"
             }
-            let lineAnimationTwo = CABasicAnimation.init(keyPath: keypath)
-            lineAnimationTwo.beginTime = CACurrentMediaTime() + duration/2
-            lineAnimationTwo.duration = duration/4
-            lineAnimationTwo.fillMode = kCAFillModeForwards
+            let lineAnimationTwo                   = CABasicAnimation.init(keyPath: keypath)
+            lineAnimationTwo.beginTime             = CACurrentMediaTime() + duration/2
+            lineAnimationTwo.duration              = duration/4
+            lineAnimationTwo.fillMode              = kCAFillModeForwards
             lineAnimationTwo.isRemovedOnCompletion = false
-            lineAnimationTwo.autoreverses = true
-            lineAnimationTwo.fromValue = 0
+            lineAnimationTwo.autoreverses          = true
+            lineAnimationTwo.fromValue             = 0
             if i == 0 || i == 3 {
                 lineAnimationTwo.toValue = lineLength/4 * scale
             }else {
@@ -303,14 +305,14 @@ extension CALayer {
         // 设置layer的timeOffset, 在继续操作也会使用到
         timeOffset    = pauseTime
         // localtime与parenttime的比例为0, 意味着localtime暂停了
-        speed         = 0;
+        speed         = 0
     }
     
     //继续动画
     func resumeAnimation() {
         let pausedTime = timeOffset
         speed          = 1
-        timeOffset     = 0;
+        timeOffset     = 0
         beginTime      = 0
         // 计算暂停时间
         let sincePause = convertTime(CACurrentMediaTime(), from: nil) - pausedTime
