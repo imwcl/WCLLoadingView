@@ -88,7 +88,7 @@ class WCLLoadingView: UIView, CAAnimationDelegate {
     }
     
     //MARK: Initial Methods
-    convenience init(fram: CGRect , colors: [UIColor]) {
+    convenience init(frame: CGRect , colors: [UIColor]) {
         self.init()
         self.frame = frame
         self.colors = colors
