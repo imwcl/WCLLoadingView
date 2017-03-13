@@ -87,6 +87,17 @@ class WCLLoadingView: UIView, CAAnimationDelegate {
         status = .animating
     }
     
+    /**
+     结束动画
+     */
+    func stopAnimation() {
+        layer.removeAllAnimations()
+        for lineLayer in lines {
+            lineLayer.removeAllAnimations()
+        }
+        status = .normal
+    }
+    
     //MARK: Initial Methods
     convenience init(frame: CGRect , colors: [UIColor]) {
         self.init()
